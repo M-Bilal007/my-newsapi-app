@@ -1,9 +1,13 @@
+'use client'
 import Image from 'next/image';
 import React from 'react'
 import { IoCartOutline } from "react-icons/io5";
 import navBarImage from '../../../public/asset/download.png'
 import Link from 'next/link';
+import SearchBar from '../searchBar/SearchBar';
+import { useFavorites } from '@/context/FavoriteContext';
 export default function Navbar() {
+  const { favorites } = useFavorites();
   return (
     <div>
     <div className='flex gap-5 justify-around h-20 items-center bg-gray-800'>
@@ -18,11 +22,11 @@ export default function Navbar() {
           <div className='cursor-pointer hover:underline transition-all duration-200 hover:-translate-y-1'><Link href={'/categories/entertainment'}>Entertainment</Link></div>
           <div className='cursor-pointer hover:underline transition-all duration-200 hover:-translate-y-1'><Link href={'/categories/technology'}>Technology</Link></div>
         </div>
-        <div><IoCartOutline size={25}/></div>
-        <div className='flex h-12'>
-          <input className='px-2 w-52 bg-gray-700 rounded-l-xl outline-none' type='text' placeholder='Explore News'/>
-          <button className='px-2  bg-blue-600 text-white rounded-r-xl'>Search</button>
-        </div>
+        <div>
+          <Link className='cursor-pointer text-gray-400' href={'/favorites'}><IoCartOutline size={25}/>
+          ({favorites.length})
+          </Link></div>
+       <SearchBar/>
       </div>
     </div>
   )
